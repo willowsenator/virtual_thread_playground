@@ -7,11 +7,15 @@ import org.slf4j.LoggerFactory;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
-public class Lec03SynchronizationWithIO {
-    private static final Logger logger = LoggerFactory.getLogger(Lec03SynchronizationWithIO.class);
+public class Lec05ReentrantLockWithIO {
+    private static final Logger logger = LoggerFactory.getLogger(Lec05ReentrantLockWithIO.class);
 
-    private static final List<Integer> list = new ArrayList<>();
+
+    private static final Lock lock = new ReentrantLock();
+
 
     static {
         System.setProperty("jdk.tracePinnedThreads", "full");
@@ -37,8 +41,14 @@ public class Lec03SynchronizationWithIO {
             });
         }
     }
-    private static synchronized void ioTask(){
-        list.add(1);
-        CommonUtils.sleep(Duration.ofSeconds(10));
+    private static void ioTask(){
+        try {
+            lock.lock();
+            CommonUtils.sleep(Duration.ofSeconds(10));
+        } catch (Exception e) {
+            logger.error("Exception in inMemoryTask", e);
+        } finally {
+            lock.unlock();
+        }
     }
 }
