@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 import java.time.Duration;
 
 public class Lec02ThreadDemo {
-    private static final Logger logger = LoggerFactory.getLogger(Lec02ThreadDemo.class);
+    private static final Logger log = LoggerFactory.getLogger(Lec02ThreadDemo.class);
 
     public static void main(String[] args) throws InterruptedException {
         //isVirtual();
@@ -23,20 +23,20 @@ public class Lec02ThreadDemo {
         var t1 = Thread.ofVirtual().start(() -> CommonUtils.sleep(Duration.ofSeconds(2)));
         var t2 = Thread.ofPlatform().start(() -> CommonUtils.sleep(Duration.ofSeconds(2)));
 
-        logger.info("t1 is virtual: {}", t1.isVirtual());
-        logger.info("t2 is virtual: {}", t2.isVirtual());
-        logger.info("Is current thread virtual: {}", Thread.currentThread().isVirtual());
+        log.info("t1 is virtual: {}", t1.isVirtual());
+        log.info("t2 is virtual: {}", t2.isVirtual());
+        log.info("Is current thread virtual: {}", Thread.currentThread().isVirtual());
     }
 
     private static void join() throws InterruptedException {
         var t1 = Thread.ofVirtual().start(() -> {
             CommonUtils.sleep(Duration.ofSeconds(2));
-            logger.info("Called product service");
+            log.info("Called product service");
         });
 
         var t2 = Thread.ofVirtual().start(() -> {
             CommonUtils.sleep(Duration.ofSeconds(1));
-            logger.info("Called email service");
+            log.info("Called email service");
         });
 
         t1.join();
@@ -46,10 +46,10 @@ public class Lec02ThreadDemo {
     private static void interrupt() throws InterruptedException {
         var t1 = Thread.ofVirtual().start(() -> {
             CommonUtils.sleep(Duration.ofSeconds(2));
-            logger.info("Called product service");
+            log.info("Called product service");
         });
-        logger.info("Is interrupted: {}", t1.isInterrupted());
+        log.info("Is interrupted: {}", t1.isInterrupted());
         t1.interrupt();
-        logger.info("Is interrupted: {}", t1.isInterrupted());
+        log.info("Is interrupted: {}", t1.isInterrupted());
     }
 }

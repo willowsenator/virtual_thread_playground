@@ -10,7 +10,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class Lec02ExecutorServiceTypes {
-    private static final Logger logger = LoggerFactory.getLogger(Lec02ExecutorServiceTypes.class);
+    private static final Logger log = LoggerFactory.getLogger(Lec02ExecutorServiceTypes.class);
 
     public static void main(String[] args) {
         // execute(Executors.newSingleThreadExecutor(), 3);
@@ -24,7 +24,7 @@ public class Lec02ExecutorServiceTypes {
     private static void scheduled() {
         try (var executorService = Executors.newSingleThreadScheduledExecutor()) {
             executorService.scheduleAtFixedRate(
-                    () -> logger.info("Executing task..."), 0, 1, TimeUnit.SECONDS
+                    () -> log.info("Executing task..."), 0, 1, TimeUnit.SECONDS
             );
             CommonUtils.sleep(Duration.ofSeconds(5));
         }
@@ -41,8 +41,8 @@ public class Lec02ExecutorServiceTypes {
     }
 
     private static void ioTask(int i) {
-        logger.info("Task started: {}, Thread info {}", i, Thread.currentThread().getName());
+        log.info("Task started: {}, Thread info {}", i, Thread.currentThread().getName());
         CommonUtils.sleep(Duration.ofSeconds(5));
-        logger.info("Task completed: {}, Thread info {}", i, Thread.currentThread().getName());
+        log.info("Task completed: {}, Thread info {}", i, Thread.currentThread().getName());
     }
 }

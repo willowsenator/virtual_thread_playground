@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Lec03SynchronizationWithIO {
-    private static final Logger logger = LoggerFactory.getLogger(Lec03SynchronizationWithIO.class);
+    private static final Logger log = LoggerFactory.getLogger(Lec03SynchronizationWithIO.class);
 
     private static final List<Integer> list = new ArrayList<>();
 
@@ -19,7 +19,7 @@ public class Lec03SynchronizationWithIO {
 
     public static void main(String[] args) {
 
-        Runnable runnable = () -> logger.info("** TEST MESSAGE **");
+        Runnable runnable = () -> log.info("** TEST MESSAGE **");
 
         var builder = Thread.ofVirtual();
         demo(builder);
@@ -31,9 +31,9 @@ public class Lec03SynchronizationWithIO {
     private static void demo(Thread.Builder builder){
         for (int i = 0; i < 50; i++) {
             builder.start(() -> {
-                logger.info("Task started: {}", Thread.currentThread());
+                log.info("Task started: {}", Thread.currentThread());
                 ioTask();
-                logger.info("Task finished: {}", Thread.currentThread());
+                log.info("Task finished: {}", Thread.currentThread());
             });
         }
     }

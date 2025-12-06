@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 import java.time.Duration;
 
 public class CooperativeSchedulingDemo {
-    private static final Logger logger = LoggerFactory.getLogger(CooperativeSchedulingDemo.class);
+    private static final Logger log = LoggerFactory.getLogger(CooperativeSchedulingDemo.class);
 
     static {
         System.setProperty("jdk.virtualThreadScheduler.maxPoolSize", "1");
@@ -29,13 +29,13 @@ public class CooperativeSchedulingDemo {
     }
 
     private static void demo(int threadNumber){
-        logger.info("threat-{} started", threadNumber);
+        log.info("threat-{} started", threadNumber);
         for (int i = 0; i < 10; i++) {
-            logger.info("thread-{} is printing {}. Thread: {}", threadNumber, i, Thread.currentThread());
+            log.info("thread-{} is printing {}. Thread: {}", threadNumber, i, Thread.currentThread());
             if((threadNumber == 1 && i % 2 == 0) || threadNumber == 2) {
                 Thread.yield();
             }
         }
-        logger.info("threat-{} ended", threadNumber);
+        log.info("threat-{} ended", threadNumber);
     }
 }

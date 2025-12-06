@@ -11,7 +11,7 @@ import java.util.concurrent.Future;
 import java.util.stream.IntStream;
 
 public class Lec04AggregatorDemo {
-    private static final Logger LOGGER = LoggerFactory.getLogger(Lec04AggregatorDemo.class);
+    private static final Logger log = LoggerFactory.getLogger(Lec04AggregatorDemo.class);
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
         try(var executor = Executors.newVirtualThreadPerTaskExecutor()) {
@@ -25,7 +25,7 @@ public class Lec04AggregatorDemo {
                     .map(Lec04AggregatorDemo::toProductDTO)
                     .toList();
 
-            LOGGER.info("list: {}", list);
+            log.info("list: {}", list);
         }
     }
 

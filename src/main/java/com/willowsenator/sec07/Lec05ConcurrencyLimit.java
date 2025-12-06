@@ -15,7 +15,7 @@ public class Lec05ConcurrencyLimit {
         execute(Executors.newFixedThreadPool(5, factory), 20);
     }
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(Lec05ConcurrencyLimit.class);
+    private static final Logger log = LoggerFactory.getLogger(Lec05ConcurrencyLimit.class);
 
     private static void execute(ExecutorService executorService, int taskCount) {
         try (executorService) {
@@ -28,6 +28,6 @@ public class Lec05ConcurrencyLimit {
     }
 
     private static void printProduct(int id) {
-        LOGGER.info("{} => {}", id, Client.getProduct(id));
+        log.info("{} => {}", id, Client.getProduct(id));
     }
 }
