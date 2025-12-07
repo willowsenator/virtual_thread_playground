@@ -19,7 +19,7 @@ public class Lec05ConcurrencyLimit {
 
     private static void execute(ExecutorService executorService, int taskCount) {
         try (executorService) {
-            for (int i = 1; i < taskCount; i++) {
+            for (int i = 1; i <= taskCount; i++) {
                 int finalI = i;
                 executorService.submit(() -> printProduct(finalI));
             }
