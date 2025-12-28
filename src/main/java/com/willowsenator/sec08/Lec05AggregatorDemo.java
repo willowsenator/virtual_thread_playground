@@ -1,0 +1,39 @@
+package com.willowsenator.sec08;
+
+import com.willowsenator.sec08.aggregator.AggregatorService;
+import com.willowsenator.sec08.aggregator.ProductDTO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.stream.IntStream;
+
+public class Lec05AggregatorDemo {
+    private static final Logger log = LoggerFactory.getLogger(Lec05AggregatorDemo.class);
+
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
+        try(var executor = Executors.newVirtualThreadPerTaskExecutor()) {
+            var aggregator = new AggregatorService(executor);
+
+            var futures = IntStream.rangeClosed(1, 52)
+                    .mapToObj(id -> executor.submit(() -> aggregator.getProductDto(id))).toList();
+
+
+            var list = futures.stream()
+                    .map(Lec05AggregatorDemo::toProductDTO)
+                    .toList();
+
+            log.info("list: {}", list);
+        }
+    }
+
+    private static ProductDTO toProductDTO(Future<ProductDTO> future) {
+        try {
+            return future.get();
+        } catch (InterruptedException | ExecutionException e) {
+            throw new RuntimeException(e);
+        }
+    }
+}
