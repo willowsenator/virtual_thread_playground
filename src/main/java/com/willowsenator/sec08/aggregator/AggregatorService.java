@@ -16,11 +16,9 @@ public class AggregatorService {
 
     public ProductDTO getProductDto(int id) {
         var product = CompletableFuture.supplyAsync(() -> Client.getProduct(id), executorService)
-                .exceptionally(ex -> "Product not found");
+                .exceptionally(ex -> null);
         var rating = CompletableFuture.supplyAsync(() -> Client.getRating(id), executorService)
-                .exceptionally(ex -> -1)
-                .orTimeout(750, TimeUnit.MICROSECONDS)
-                .exceptionally(ex -> -2);
+                .exceptionally(ex -> -1);
 
         return new ProductDTO(id, product.join(), rating.join());
     }
