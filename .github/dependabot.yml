@@ -1,0 +1,32 @@
+version: 2
+updates:
+  - package-ecosystem: "docker"
+    directories:
+      - "/"
+    schedule:
+      interval: "weekly"
+    groups:
+      docker:
+        update-types: ["minor", "patch"]
+        patterns:
+          - "*"
+  - package-ecosystem: "github-actions"
+    directories:
+      - "/"
+    schedule:
+      interval: "weekly"
+    groups:
+      github-actions:
+        update-types: ["minor", "patch"]
+        patterns:
+          - "*"
+  - package-ecosystem: "gradle"
+    directories:
+      - "/"
+    schedule:
+      interval: "weekly"
+    groups:
+      gradle:
+        update-types: ["minor", "patch"]
+        patterns:
+          - "*"
