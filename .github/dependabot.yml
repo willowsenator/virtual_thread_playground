@@ -10,6 +10,11 @@ updates:
         update-types: ["minor", "patch"]
         patterns:
           - "*"
+    ignore:
+      # The base image's major is the JDK release; stay on an LTS line (25) and move to the next
+      # LTS by hand instead of following every six-monthly feature release.
+      - dependency-name: "bellsoft/liberica-openjdk-alpine"
+        update-types: ["version-update:semver-major"]
   - package-ecosystem: "github-actions"
     directories:
       - "/"
